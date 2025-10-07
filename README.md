@@ -133,21 +133,23 @@ print("\nEDA on Titanic dataset Completed Successfully!")
 
 ## OUTPUT
 
-[text](exno2output.txt)
-![alt text](ex21.png)
-![alt text](ex22.png) 
-![alt text](ex23.png) 
-![alt text](ex24.png)
-![alt text](ex25.png) 
-![alt text](ex26.png)
-![alt text](ex27.png) 
-![alt text](ex28.png) 
-![alt text](ex29.png) 
-![alt text](ex210.png)
-![alt text](ex211.png)
-![alt text](ex212.png)
-![alt text](ex213.png)
-![alt text](ex214.png)
+[text](EXNO2DS/exno2output.txt)
+![alt text](EXNO2DS/ex21.png)
+![alt text](EXNO2DS/ex22.png)
+![alt text](EXNO2DS/ex23.png)
+![alt text](EXNO2DS/ex24.png)
+![alt text](EXNO2DS/ex25.png)
+![alt text](EXNO2DS/ex26.png)
+![alt text](EXNO2DS/ex27.png)
+![alt text](EXNO2DS/ex28.png)
+![alt text](EXNO2DS/ex29.png)
+![alt text](EXNO2DS/ex210.png)
+![alt text](EXNO2DS/ex211.png)
+![alt text](EXNO2DS/ex212.png)
+![alt text](EXNO2DS/ex213.png)
+![alt text](EXNO2DS/ex214.png)
+
+
 
 # RESULT
     “Exploratory data analysis of the Titanic dataset, including missing value imputation, outlier removal, and distributional and correlation assessment, reveals key survival patterns associated with passenger sex, class, and age, producing a clean dataset ready for predictive modeling.”
