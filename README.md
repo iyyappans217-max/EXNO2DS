@@ -131,7 +131,8 @@ print("\nEDA on Titanic dataset Completed Successfully!")
 
 ```
 
-#OUTPUT
+## OUTPUT
+
 [text](exno2output.txt)
 ![alt text](ex21.png)
 ![alt text](ex22.png) 
