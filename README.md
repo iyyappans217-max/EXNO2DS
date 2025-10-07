@@ -23,7 +23,130 @@ STEP 7: Use cross tabulation method to quantitatively analyze the relationship b
 STEP 8: Use heatmap method of representation to show relationships between two variables, one plotted on each axis.
 
 ## CODING AND OUTPUT
-        <<INCLUDE YOUR CODING AND OUTPUT SCREENSHOTS>>
+```
+# -----------------------------------------------------
+# AIM:
+# To perform Exploratory Data Analysis on the Titanic dataset.
+# -----------------------------------------------------
+
+# -----------------------------------------------------
+# STEP 1: Import required packages
+# -----------------------------------------------------
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+# -----------------------------------------------------
+# STEP 2: Load dataset and handle missing values
+# -----------------------------------------------------
+df = pd.read_csv("titanic_dataset.csv")
+
+print("First 5 rows of dataset:")
+print(df.head())
+
+print("\nChecking for null values:")
+print(df.isnull().sum())
+
+# Replace nulls for numeric columns with median (safer for skewed data)
+numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
+for col in numeric_cols:
+    df[col] = pd.to_numeric(df[col], errors='coerce')  # ensure numeric
+    df[col].fillna(df[col].median(), inplace=True)
+
+# Replace nulls for categorical columns with mode
+categorical_cols = df.select_dtypes(include=['object']).columns
+for col in categorical_cols:
+    df[col].fillna(df[col].mode()[0], inplace=True)
+
+print("\nNull values after filling:")
+print(df.isnull().sum())
+
+# -----------------------------------------------------
+# STEP 3: Boxplot for Outlier Detection (Numerical Columns)
+# -----------------------------------------------------
+plt.figure(figsize=(10,6))
+sns.boxplot(data=df[numeric_cols])
+plt.title("Boxplot - Outlier Detection")
+plt.show()
+
+# -----------------------------------------------------
+# STEP 4: Remove Outliers using IQR Method (Numerical Columns)
+# -----------------------------------------------------
+Q1 = df[numeric_cols].quantile(0.25)
+Q3 = df[numeric_cols].quantile(0.75)
+IQR = Q3 - Q1
+
+df_iqr_cleaned = df[~((df[numeric_cols] < (Q1 - 1.5 * IQR)) | 
+                      (df[numeric_cols] > (Q3 + 1.5 * IQR))).any(axis=1)]
+print("\nDataset shape after removing outliers (IQR):", df_iqr_cleaned.shape)
+print(f"Rows removed: {df.shape[0] - df_iqr_cleaned.shape[0]}")
+
+# -----------------------------------------------------
+# STEP 5: Countplot for Categorical Data (with Survival)
+# -----------------------------------------------------
+for col in categorical_cols:
+    plt.figure(figsize=(6,4))
+    sns.countplot(x=col, hue='Survived', data=df_iqr_cleaned)
+    plt.title(f"Countplot of {col} (by Survived)")
+    plt.show()
+
+# -----------------------------------------------------
+# STEP 6: Distribution Plots for Numerical Columns
+# -----------------------------------------------------
+for col in numeric_cols:
+    plt.figure(figsize=(6,4))
+    sns.histplot(df_iqr_cleaned[col], kde=True)
+    plt.title(f"Distribution of {col}")
+    plt.show()
+
+# -----------------------------------------------------
+# STEP 7: Cross Tabulation Analysis
+# Example: Sex vs Survived
+# -----------------------------------------------------
+cross_tab = pd.crosstab(df_iqr_cleaned['Sex'], df_iqr_cleaned['Survived'])
+print("\nCross Tabulation (Sex vs Survived):")
+print(cross_tab)
+
+# Normalized percentages
+cross_tab_normalized = pd.crosstab(df_iqr_cleaned['Sex'], df_iqr_cleaned['Survived'], normalize='index')
+print("\nNormalized Cross Tab (Sex vs Survived %):")
+print(cross_tab_normalized)
+
+# -----------------------------------------------------
+# STEP 8: Heatmap of Correlation
+# -----------------------------------------------------
+plt.figure(figsize=(10,8))
+mask = np.triu(df_iqr_cleaned[numeric_cols].corr())  # mask upper triangle
+sns.heatmap(df_iqr_cleaned[numeric_cols].corr(), annot=True, cmap="coolwarm", mask=mask)
+plt.title("Heatmap of Correlation Matrix")
+plt.show()
+
+# -----------------------------------------------------
+# STEP 9: Save cleaned dataset
+# -----------------------------------------------------
+df_iqr_cleaned.to_csv("titanic_cleaned.csv", index=False)
+print("\nCleaned dataset saved as 'titanic_cleaned.csv'")
+print("\nEDA on Titanic dataset Completed Successfully!")
+
+```
+# OUTPUT
+[text](exno2output.txt)
+![alt text](ex21.png)
+![alt text](ex22.png) 
+![alt text](ex23.png) 
+![alt text](ex24.png)
+![alt text](ex25.png) 
+![alt text](ex26.png)
+![alt text](ex27.png) 
+![alt text](ex28.png) 
+![alt text](ex29.png) 
+![alt text](ex210.png)
+![alt text](ex211.png)
+![alt text](ex212.png)
+![alt text](ex213.png)
+![alt text](ex214.png)
 
 # RESULT
-        <<INCLUDE YOUR RESULT HERE>>
+
+“Exploratory data analysis of the Titanic dataset, including missing value imputation, outlier removal, and distributional and correlation assessment, reveals key survival patterns associated with passenger sex, class, and age, producing a clean dataset ready for predictive modeling.”
