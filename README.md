@@ -145,7 +145,7 @@ print("\nEDA on Titanic dataset Completed Successfully!")
 ![alt text](ex2(11).png)
 ![alt text](ex2(12).png)
 ![alt text](ex2(13).png)
-[img14](ex2(14).png)
+![alt text](ex2(14).png)
 
 # RESULT
 
